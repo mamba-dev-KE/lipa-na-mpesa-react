@@ -27,10 +27,11 @@ app.get('/payment/auth', async (_, res: Response) => {
       }
     });
 
-    res.status(200).json(response.data)
-
+    if (response.status === 200) {
+      res.status(200).json(response.data)
+    }
   } catch (err) {
-    res.status(400).json({ message: 'Not found' })
+    res.status(400).json({ message: 'An error occurred' })
   }
 })
 
