@@ -4,6 +4,7 @@ import type { Express, Response } from 'express'
 import dotenv from 'dotenv';
 import axios from 'axios'
 import { Buffer } from 'node:buffer'
+import ngrok from 'ngrok'
 
 dotenv.config();
 
@@ -38,3 +39,14 @@ app.get('/payment/auth', async (_, res: Response) => {
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 });
+
+ngrok.connect({
+  proto: 'http',
+  addr: 5500
+}).then((url) => {
+  console.log(`ngrok ==== opened at: ${url}`)
+  console.log('open ngrok dash at https://localhost:4040\n')
+}).catch(error => {
+  console.error('Error while connecting Ngrok', error);
+  return new Error('Ngrok Failed');
+})
