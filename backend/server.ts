@@ -6,6 +6,7 @@ import axios from 'axios'
 import { Buffer } from 'node:buffer'
 import ngrok from 'ngrok'
 import { getTimestamp } from './utils/helpers';
+import { getAuthTokenMiddleware } from './middleware';
 
 dotenv.config();
 
@@ -22,8 +23,12 @@ const PASSKEY = process.env.PASSKEY!
 const BUSINESS_SHORT_CODE = process.env.BUSINESS_SHORT_CODE!
 const PASSWORD = Buffer.from(`${BUSINESS_SHORT_CODE}${PASSKEY}${TIMESTAMP}`).toString('base64')
 
+app.use(getAuthTokenMiddleware)
+
 app.get('/', (_, res: Response) => {
   res.status(200).json({ message: 'Hello, world!' });
+  // res.status(200).json(res.locals.data);
+
 });
 
 // get auth token
@@ -48,7 +53,7 @@ app.get('/payment/auth', async (_, res: Response) => {
 
 // initiate STK push prompt
 
-app.post('/payment/lipa-na-mpesa', async (req: Request, res: Response) => {
+app.post('/payment/lipa-na-mpesa', async (_: Request, res: Response) => {
   const config = {
     BusinessShortCode: BUSINESS_SHORT_CODE,
     Password: PASSWORD,
