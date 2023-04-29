@@ -1,6 +1,6 @@
 {
   "version": 2,
   "name": "lipa-na-mpesa-react",
-  "builds": [{ "src": "build/backend/index.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "/build/backend/index.js" }]
+  "builds": [{ "src": "build/backend/server.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/(.*)", "dest": "/build/backend/server.js" }]
 }
