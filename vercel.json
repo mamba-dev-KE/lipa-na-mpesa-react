@@ -1,4 +1,5 @@
 {
+    "buildCommand": "yarn buil",
     "functions": {
       "build/backend/*.js": {
         "runtime": "@vercel/node"
